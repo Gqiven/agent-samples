@@ -9,6 +9,10 @@ LCEL (LangChain Expression Language) 核心语法：
 这是 LangChain 最基础的链式组合，类似 Promise 链。
 """
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+
 import os
 import asyncio
 from langchain_core.prompts import ChatPromptTemplate

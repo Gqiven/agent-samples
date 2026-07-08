@@ -11,6 +11,10 @@ Chain 2: Prompt → LLM → PydanticOutputParser（结构化输出）
 4. Parser 解析 + 校验，失败自动重试
 """
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+
 import os
 import asyncio
 from langchain_core.prompts import ChatPromptTemplate
