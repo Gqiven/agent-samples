@@ -13,8 +13,8 @@ import os
 import asyncio
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from langchain_openai import ChatOpenAI
-from langchain_anthropic import ChatAnthropic
+# from langchain_openai import ChatOpenAI
+# from langchain_anthropic import ChatAnthropic
 from langchain_deepseek import ChatDeepSeek
 
 # 创建llm实例
