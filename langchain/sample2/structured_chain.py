@@ -13,7 +13,7 @@ Chain 2: Prompt → LLM → PydanticOutputParser（结构化输出）
 
 import sys
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import os
 import asyncio

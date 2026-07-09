@@ -13,7 +13,7 @@ Chain 3: 多轮对话链（带历史消息管理）
 
 import sys
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import os
 import uuid
