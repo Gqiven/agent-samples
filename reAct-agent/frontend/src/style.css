@@ -1,0 +1,105 @@
+:root {
+  --bg-primary: #0a0a1a;
+  --bg-secondary: #111128;
+  --bg-tertiary: #1a1a3e;
+  --border: #2a2a4e;
+  --text-primary: #e0e0e0;
+  --text-secondary: #999;
+  --accent: #e94560;
+  --thought: #c792ea;
+  --action: #f5a623;
+  --observation: #53d769;
+  --answer: #0099ff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg-primary); color: var(--text-primary); height: 100vh; }
+#app { height: 100vh; display: flex; flex-direction: column; }
+
+.header { background: var(--bg-secondary); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+.header h1 { font-size: 16px; color: var(--thought); }
+.header .react-badge { background: var(--thought); color: #000; padding: 2px 12px; border-radius: 10px; font-size: 11px; font-weight: 700; letter-spacing: 1px; }
+
+.main { display: flex; flex: 1; overflow: hidden; }
+
+/* Left: Chat */
+.chat-area { flex: 1; display: flex; flex-direction: column; }
+
+.chat-container { flex: 1; overflow-y: auto; padding: 16px 24px; }
+
+.message { margin-bottom: 16px; display: flex; gap: 12px; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.message.user { flex-direction: row-reverse; }
+
+.avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.message.user .avatar { background: #0f3460; color: #fff; }
+.message.assistant .avatar { background: var(--thought); color: #000; }
+
+.bubble { max-width: 70%; padding: 12px 16px; border-radius: 12px; font-size: 14px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; }
+.message.user .bubble { background: #16213e; color: var(--text-primary); }
+.message.assistant .bubble { background: var(--bg-tertiary); color: var(--text-primary); }
+.typing-cursor { display: inline-block; width: 2px; height: 16px; background: var(--thought); animation: blink 1s infinite; vertical-align: middle; margin-left: 2px; }
+@keyframes blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } }
+
+.quick-actions { padding: 8px 24px; display: flex; gap: 8px; flex-wrap: wrap; }
+.quick-btn { background: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid var(--border); border-radius: 6px; padding: 4px 12px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+.quick-btn:hover { color: var(--thought); border-color: var(--thought); }
+
+.input-area { padding: 16px 24px; background: var(--bg-secondary); border-top: 1px solid var(--border); display: flex; gap: 12px; }
+.input-area textarea { flex: 1; background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 14px; color: var(--text-primary); resize: none; height: 44px; outline: none; font-family: inherit; }
+.input-area textarea:focus { border-color: var(--thought); }
+.input-area button { background: var(--thought); color: #000; border: none; border-radius: 8px; padding: 0 20px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.input-area button:disabled { background: #555; color: #999; cursor: not-allowed; }
+
+/* Right: ReAct Trace */
+.trace-area { width: 400px; background: var(--bg-secondary); border-left: 1px solid var(--border); display: flex; flex-direction: column; }
+
+.trace-header { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.trace-header h2 { font-size: 14px; color: var(--thought); margin-bottom: 8px; }
+
+.react-loop { display: flex; align-items: center; gap: 6px; font-size: 12px; margin-bottom: 8px; }
+.react-phase { padding: 3px 10px; border-radius: 4px; font-weight: 600; transition: all 0.3s; opacity: 0.3; }
+.react-phase.active { opacity: 1; transform: scale(1.05); }
+.react-phase.thought { background: var(--thought); color: #000; }
+.react-phase.action { background: var(--action); color: #000; }
+.react-phase.observation { background: var(--observation); color: #000; }
+.react-loop-arrow { color: #555; font-size: 14px; }
+
+.iteration-bar { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-secondary); }
+.iteration-dots { display: flex; gap: 4px; }
+.iteration-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); transition: all 0.3s; }
+.iteration-dot.active { background: var(--thought); }
+.iteration-dot.current { background: var(--action); box-shadow: 0 0 8px var(--action); }
+
+.trace-list { flex: 1; overflow-y: auto; padding: 12px 16px; }
+
+.trace-step { margin-bottom: 12px; border-radius: 8px; overflow: hidden; animation: slideIn 0.3s ease; }
+@keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+
+.trace-step.thought { border-left: 3px solid var(--thought); }
+.trace-step.action { border-left: 3px solid var(--action); }
+.trace-step.observation { border-left: 3px solid var(--observation); }
+.trace-step.answer { border-left: 3px solid var(--answer); }
+
+.trace-step-header { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--bg-tertiary); }
+.trace-step-icon { font-size: 14px; }
+.trace-step-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.trace-step.thought .trace-step-label { color: var(--thought); }
+.trace-step.action .trace-step-label { color: var(--action); }
+.trace-step.observation .trace-step-label { color: var(--observation); }
+.trace-step.answer .trace-step-label { color: var(--answer); }
+
+.trace-step-badge { font-size: 10px; padding: 1px 8px; border-radius: 10px; font-weight: 600; margin-left: auto; }
+.trace-step.action .trace-step-badge { background: var(--action); color: #000; }
+.trace-step.observation .trace-step-badge { background: var(--observation); color: #000; }
+
+.trace-step-body { padding: 10px 12px; background: rgba(0,0,0,0.2); font-size: 13px; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+.trace-args { margin-top: 6px; font-size: 12px; font-family: 'Fira Code', monospace; background: rgba(0,0,0,0.3); padding: 6px 8px; border-radius: 4px; color: var(--action); }
+
+/* State Diagram */
+.state-diagram { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.state-diagram svg { width: 100%; height: auto; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
